@@ -28,7 +28,7 @@
                     <td th:text="*{task.description}"></td>
                     <td>
                         <a th:href="@{/tasks/__${task.getId()}__}" class="btn btn-primary">View Details</a>
-                        <a th:href="@{/task/edit/__${task.getId()}__}" class="btn btn-danger">Edit</a>
+                        <a th:href="@{/tasks/edit/__${task.getId()}__}" class="btn btn-danger">Edit</a>
                     </td>
                 </tr>
                 </tbody>
