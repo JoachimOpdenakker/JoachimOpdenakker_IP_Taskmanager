@@ -56,4 +56,21 @@ public class TaskManagerController {
         taskService.addTask(taskDTO);
         return "redirect:/tasks";
     }
+
+    @GetMapping("/task/edit/{id}")
+    public String editTask(Model model, @PathVariable("id") String id){
+        Task task = taskService.getTask(UUID.fromString(id));
+        model.addAttribute(task);
+        return "editTask";
+    }
+
+    @PostMapping("/task/edit/{id}")
+    public String editTask(@ModelAttribute("task") TaskDTO taskDTO, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+            return "tasks";
+        }
+        taskService.editTask(taskDTO.getId(), taskDTO);
+        return "redirect:/tasks/";
+    }
 }

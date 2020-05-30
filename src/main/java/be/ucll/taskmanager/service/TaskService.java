@@ -13,6 +13,8 @@ public interface TaskService {
     void addTask(TaskDTO taskDTO);
 
     public Task getTask(UUID id);
+
+    void editTask(UUID id, TaskDTO taskDTO);
 }
 
 
