@@ -32,6 +32,7 @@
 </table>
     <a th:href="@{/tasks}" class="btn btn-light">Back</a>
     <a th:href="@{/tasks/edit/__${task.getId()}__}" class="btn btn-danger">Edit</a>
+    <a th:href="@{/tasks/__${task.getId()}__/sub/create}" class="btn btn-success">Create Subtask</a>
 </div>
 </body>
 </html>

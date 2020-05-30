@@ -1,7 +1,10 @@
 package be.ucll.taskmanager.service;
 
+import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.model.SubTask;
 import be.ucll.taskmanager.model.Task;
+import be.ucll.taskmanager.repository.SubTaskRepository;
 import be.ucll.taskmanager.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +18,12 @@ import java.util.UUID;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final SubTaskRepository subTaskRepository;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository){
+    public TaskServiceImpl(TaskRepository taskRepository, SubTaskRepository subTaskRepository){
         this.taskRepository = taskRepository;
+        this.subTaskRepository = subTaskRepository;
         taskRepository.save(new Task("Test", LocalDateTime.now(), "this is some test description"));
         taskRepository.save(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
         taskRepository.save(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
@@ -57,5 +62,16 @@ public class TaskServiceImpl implements TaskService {
         t.setDescription(bla.getDescription());
         t.setDueDate(bla.getDueDate());
         taskRepository.save(t);
+    }
+
+    @Override
+    public void addSubTask(SubTaskDTO subTaskDTO){
+        UUID subTaskDTOId = subTaskDTO.getId();
+        SubTask subtask = new SubTask();
+        subtask.setId(subTaskDTOId);
+        subtask.setTitle(subTaskDTO.getTitle());
+        subtask.setDescription(subTaskDTO.getDescription());
+
+        this.subTaskRepository.save(subtask);
     }
 }

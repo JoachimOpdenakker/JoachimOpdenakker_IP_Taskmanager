@@ -1,5 +1,6 @@
 package be.ucll.taskmanager.service;
 
+import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
 import be.ucll.taskmanager.model.Task;
 
@@ -15,6 +16,8 @@ public interface TaskService {
     public Task getTask(UUID id);
 
     void editTask(UUID id, TaskDTO taskDTO);
+
+    void addSubTask(SubTaskDTO subTaskDTO);
 }
 
 

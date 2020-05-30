@@ -1,6 +1,8 @@
 package be.ucll.taskmanager.controller;
 
+import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.model.SubTask;
 import be.ucll.taskmanager.model.Task;
 import be.ucll.taskmanager.service.TaskService;
 import be.ucll.taskmanager.service.TaskServiceImpl;
@@ -72,5 +74,20 @@ public class TaskManagerController {
         }
         taskService.editTask(taskDTO.getId(), taskDTO);
         return "redirect:/tasks/";
+    }
+
+    @GetMapping("/tasks/{id}/sub/create")
+    public String createSubTask(Model model, @PathVariable("id") String id){
+        model.addAttribute("id", id);
+        model.addAttribute("subtask", new SubTask());
+        return "newSubTask";
+    }
+
+    @PostMapping("/tasks/{id}/sub/create")
+    public String createSubTask(@ModelAttribute("subTask") SubTaskDTO subTaskDTO, BindingResult bindingResult, @PathVariable("id") String id){
+        if(bindingResult.hasErrors()){
+            return "newSubTask";
+        }
+        taskService.addSubTask(subTaskDTO);
     }
 }
