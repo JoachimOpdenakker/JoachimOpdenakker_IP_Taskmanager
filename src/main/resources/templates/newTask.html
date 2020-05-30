@@ -15,7 +15,7 @@
 <body>
 <div th:include="navigation.html"></div>
 <div class="container small-middle-container">
-    <form action="/newtask" method="post" th:object="${taskDTO}">
+    <form action="/tasks/new" method="post" th:object="${taskDTO}">
         <div class="form-group">
             <label for="tasktitle">Task Title</label>
             <input type="text" th:field="*{title}" id="tasktitle" name="tasktitle"  class="form-control" required>

@@ -30,7 +30,7 @@ public class TaskManagerController {
         return "tasks";
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/tasks/{id}")
     public String getTask(Model model, @PathVariable("id") String id){
         Task taskDTO = taskService.getTask(UUID.fromString(id));
         System.out.println(UUID.fromString(id));
@@ -40,13 +40,13 @@ public class TaskManagerController {
         return "task.html";
     }
 
-    @GetMapping("/newtask")
+    @GetMapping("/tasks/new")
     public String newTask(Model model){
         model.addAttribute("taskDTO", new TaskDTO());
         return "newTask";
     }
 
-    @PostMapping("/newtask")
+    @PostMapping("/tasks/new")
     public String newTask(Model model, @ModelAttribute TaskDTO taskDTO, BindingResult bindingResult){
         System.out.print("Adding a new Task");
         if(bindingResult.hasErrors()){
