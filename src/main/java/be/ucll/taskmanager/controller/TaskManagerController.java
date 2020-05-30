@@ -19,6 +19,11 @@ public class TaskManagerController {
     @Autowired
     TaskServiceImpl taskService;
 
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
     @GetMapping("/tasks")
     public String getTasks(Model model){
         model.addAttribute("tasks", taskService.getTasks());
