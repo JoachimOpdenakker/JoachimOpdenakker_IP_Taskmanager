@@ -23,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDTO> getTasks(){
         List<TaskDTO> taskDTOS = new ArrayList<>();
-        for (Task task : taskRepository.getTaskList()){
+        for (Task task : taskRepository.findAll()){
             TaskDTO taskDTO = new TaskDTO();
             taskDTO.setTitle(task.getTitle());
             taskDTO.setDescription(task.getDescription());
@@ -36,13 +36,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task getTask(UUID id) {
-        Task task = taskRepository.getTask(id);
-        return task;
+        return taskRepository.findById(id).get();
+//        return task;
     }
 
     @Override
     public void addTask(TaskDTO taskDTO){
         Task task = new Task(taskDTO.getTitle(), taskDTO.getDueDate(), taskDTO.getDescription());
-        taskRepository.addTask(task);
+        taskRepository.save(task);
     }
 }

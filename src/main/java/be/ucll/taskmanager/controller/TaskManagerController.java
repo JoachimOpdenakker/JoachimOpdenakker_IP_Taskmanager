@@ -31,8 +31,12 @@ public class TaskManagerController {
     }
 
     @GetMapping("/task/{id}")
-    public String getTask(Model model, @PathVariable("id") UUID id){
-        model.addAttribute("task", taskService.getTask(id));
+    public String getTask(Model model, @PathVariable("id") String id){
+        Task taskDTO = taskService.getTask(UUID.fromString(id));
+        System.out.println(UUID.fromString(id));
+        System.out.println(taskDTO);
+//        model.addAttribute("task", taskService.getTask(UUID.fromString(id)));
+        model.addAttribute("task", taskDTO);
         return "task.html";
     }
 
