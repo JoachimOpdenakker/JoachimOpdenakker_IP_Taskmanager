@@ -7,24 +7,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="container">
-<h4>Tasks</h4>
-<table class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Title</th>
-        <th scope="col">DueDate</th>
-        <th scope="col">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="task : ${tasks}">
-        <td th:text="*{task.title}"></td>
-        <td th:text="*{task.dueDate}"></td>
-        <td th:text="*{task.description}"></td>
-    </tr>
-    </tbody>
-</table>
-</div>
+    <div class="container">
+        <h4>Tasks</h4>
+
+        <div th:if="${tasks != null || !tasks.empty}">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">DueDate</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${tasks}">
+                    <td th:text="*{task.title}"></td>
+                    <td th:text="*{task.dueDate}"></td>
+                    <td th:text="*{task.description}"></td>
+                    <td><a th:href="@{/task/__${task.getId()}__}">View Details</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${tasks == null || tasks.empty}">
+            <p> No tasks left to do</p>
+        </div>
+    </div>
 </body>
 </html>

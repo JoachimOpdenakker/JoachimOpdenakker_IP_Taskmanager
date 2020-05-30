@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class TaskRepository {
@@ -13,9 +14,9 @@ public class TaskRepository {
 
     public TaskRepository(){
         taskList = new ArrayList<>();
-        taskList.add(new Task("Test", LocalDateTime.now(), "this is some test description"));
-        taskList.add(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
-        taskList.add(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
+//        taskList.add(new Task("Test", LocalDateTime.now(), "this is some test description"));
+//        taskList.add(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
+//        taskList.add(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
     }
 
     public List<Task> getTaskList(){
@@ -24,5 +25,17 @@ public class TaskRepository {
 
     public void addTask(Task task){
         taskList.add(task);
+    }
+
+    public Task getTask(UUID id){
+        for (Task task : taskList){
+            if (task.getId() == id){
+                return task;
+            }
+            else {
+                return null;
+            }
+        }
+        return null;
     }
 }
