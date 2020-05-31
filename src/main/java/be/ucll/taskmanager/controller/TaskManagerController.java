@@ -35,10 +35,9 @@ public class TaskManagerController {
     @GetMapping("/tasks/{id}")
     public String getTask(Model model, @PathVariable("id") String id){
         Task taskDTO = taskService.getTask(UUID.fromString(id));
-        System.out.println(UUID.fromString(id));
-        System.out.println(taskDTO);
-//        model.addAttribute("task", taskService.getTask(UUID.fromString(id)));
+        List<SubTaskDTO> subTaskDTOS = taskService.getSubTasksBySuperTaskID(UUID.fromString(id));
         model.addAttribute("task", taskDTO);
+        model.addAttribute("subtasks", subTaskDTOS);
         return "task.html";
     }
 
@@ -88,6 +87,8 @@ public class TaskManagerController {
         if(bindingResult.hasErrors()){
             return "newSubTask";
         }
-        taskService.addSubTask(subTaskDTO);
+        UUID taskID = UUID.fromString(id);
+        taskService.addSubTask(taskID, subTaskDTO);
+        return "redirect:/tasks/" + id;
     }
 }

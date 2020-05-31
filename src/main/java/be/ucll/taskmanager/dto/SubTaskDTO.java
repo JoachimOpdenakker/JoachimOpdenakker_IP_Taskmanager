@@ -7,6 +7,7 @@ public class SubTaskDTO {
     private UUID id;
     private String title;
     private String description;
+    private UUID superTaskID;
 
     public SubTaskDTO(){
 
@@ -40,5 +41,13 @@ public class SubTaskDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public UUID getSuperTaskID(){
+        return superTaskID;
+    }
+
+    public void setSuperTaskID(UUID superTaskID){
+        this.superTaskID = superTaskID;
     }
 }

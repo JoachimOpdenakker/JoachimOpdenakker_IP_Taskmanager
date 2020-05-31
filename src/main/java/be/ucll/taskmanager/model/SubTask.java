@@ -13,15 +13,16 @@ public class SubTask {
     private UUID id;
     private String title;
     private String description;
-
+    private UUID superTaskID;
     public SubTask(){
 
     }
 
-    public SubTask(String title, String description){
+    public SubTask(String title, String description, UUID superTaskID){
         this.title = title;
         this.description = description;
         this.id = UUID.randomUUID();
+        this.superTaskID = superTaskID;
     }
 
     public UUID getId() {
@@ -46,5 +47,18 @@ public class SubTask {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public UUID getSuperTaskID(){
+        return superTaskID;
+    }
+
+    public void setSuperTaskID(UUID superTaskID){
+        this.superTaskID = superTaskID;
+    }
+
+    @Override
+    public String toString(){
+        return "title: " + this.getTitle() + " description: " + this.getDescription();
     }
 }

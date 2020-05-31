@@ -43,6 +43,22 @@ public class TaskServiceImpl implements TaskService {
         return taskDTOS;
     }
 
+    public List<SubTaskDTO> getSubTasksBySuperTaskID(UUID id){
+        List<SubTaskDTO> subTaskDTOS = new ArrayList<>();
+        for (SubTask subTask : subTaskRepository.findAll()){
+            System.out.print("there are subtasks in the subtaskrepository");
+            if(subTask.getSuperTaskID() == id) {
+                System.out.print("the subtask's supertaskid matches");
+                SubTaskDTO subTaskDTO = new SubTaskDTO();
+                subTaskDTO.setId(subTask.getId());
+                subTaskDTO.setTitle(subTask.getTitle());
+                subTaskDTO.setDescription(subTask.getDescription());
+                subTaskDTO.setSuperTaskID(subTask.getSuperTaskID());
+            }
+        }
+        return subTaskDTOS;
+    }
+
     @Override
     public Task getTask(UUID id) {
         return taskRepository.findById(id).get();
@@ -65,13 +81,32 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addSubTask(SubTaskDTO subTaskDTO){
+    public void addSubTask(UUID id, SubTaskDTO subTaskDTO){
         UUID subTaskDTOId = subTaskDTO.getId();
         SubTask subtask = new SubTask();
-        subtask.setId(subTaskDTOId);
         subtask.setTitle(subTaskDTO.getTitle());
         subtask.setDescription(subTaskDTO.getDescription());
 
-        this.subTaskRepository.save(subtask);
+        TaskDTO taskDTO = new TaskDTO();
+        Task task = this.taskRepository.findById(subTaskDTOId).get();
+        taskDTO.setId(task.getId());
+        taskDTO.setTitle(task.getTitle());
+        taskDTO.setDescription(task.getDescription());
+        taskDTO.setDueDate(task.getDueDate());
+        List<SubTask> subTasks = task.getSubTaskList();
+        List<SubTaskDTO> subTaskDTOS = new ArrayList<>();
+        for (SubTask subTask: subTasks){
+            SubTaskDTO subTaskDTO1 = new SubTaskDTO();
+            subTaskDTO1.setId(subTask.getId());
+            subTaskDTO1.setTitle(subTask.getTitle());
+            subTaskDTO1.setDescription(subTask.getDescription());
+            subTaskDTO1.setSuperTaskID(subtask.getSuperTaskID());
+            subTaskDTOS.add(subTaskDTO1);
+        }
+        subTaskDTOS.add(subTaskDTO);
+        taskDTO.setSubTaskDTOList(subTaskDTOS);
+
+        this.subTaskRepository.saveAndFlush(subtask);
+        this.taskRepository.save(task);
     }
 }

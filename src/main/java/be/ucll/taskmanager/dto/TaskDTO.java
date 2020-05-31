@@ -3,6 +3,8 @@ package be.ucll.taskmanager.dto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class TaskDTO {
@@ -12,6 +14,8 @@ public class TaskDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dueDate;
     private String description;
+
+    private List<SubTaskDTO> subTaskDTOList;
 
     public TaskDTO(){
 
@@ -54,5 +58,20 @@ public class TaskDTO {
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public List<SubTaskDTO> getSubTaskDTOList() {
+        return subTaskDTOList;
+    }
+
+    public void setSubTaskDTOList(List<SubTaskDTO> subTaskDTOList) {
+        this.subTaskDTOList = subTaskDTOList;
+    }
+
+    public void addSubTask(SubTaskDTO subTaskDTO){
+        if(this.subTaskDTOList == null){
+            this.subTaskDTOList = new ArrayList<>();
+        }
+        this.subTaskDTOList.add(subTaskDTO);
     }
 }

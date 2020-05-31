@@ -15,7 +15,7 @@
 <body>
 <div th:include="navigation.html"></div>
 <div class="container small-middle-container">
-    <form th:action="@{'/tasks/'+ ${id}+'/sub/create}" method="post" th:object="${subtask}">
+    <form th:action="@{'/tasks/'+ ${id}+'/sub/create'}" method="post" th:object="${subtask}">
         <div class="form-group">
             <label for="subtasktitle">Subtask Title</label>
             <input type="text" th:field="*{title}" id="subtasktitle" name="subtasktitle" class="form-control" required>
@@ -23,6 +23,9 @@
         <div class="form-group">
             <label for="subtaskdescription">Subtask Description</label>
             <input type="text" th:field="*{description}" id="subtaskdescription" name="subtaskdescription" class="form-control" required>
+        </div>
+        <div>
+            <input type="hidden" th:value="${id}" id="id" name="id">
         </div>
         <button type="submit" class="btn btn-primary">Create new subtask</button>
     </form>
