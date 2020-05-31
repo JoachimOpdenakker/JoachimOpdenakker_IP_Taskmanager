@@ -45,14 +45,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="task : ${subtasks}">
-                <td th:text="*{task.title}"></td>
-                <td th:text="*{task.description}"></td>
+            <tr th:each="subtask : ${subtasks}">
+                <td th:text="*{subtask.title}"></td>
+                <td th:text="*{subtask.description}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div th:if="${tasks == null || tasks.empty}">
+    <div th:if="${subtasks == null || subtasks.empty}">
         <p>This task has no subtasks.</p>
     </div>
 </div>

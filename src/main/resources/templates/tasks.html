@@ -37,6 +37,35 @@
         <div th:if="${tasks == null || tasks.empty}">
             <p> No tasks left to do</p>
         </div>
-    </div>
+
+
+<!--<h4>Subtasks</h4>-->
+
+<!--<div th:if="${subtasks != null || !subtasks.empty}">-->
+<!--    <table class="table table-striped">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--            <th scope="col">Subtask ID</th>-->
+<!--            <th scope="col">Subtask's SuperTask ID</th>-->
+<!--            <th scope="col">Title</th>-->
+<!--            <th scope="col">Description</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="task : ${subtasks}">-->
+<!--            <td th:text="*{task.id}"></td>-->
+<!--            <td th:text="*{task.superTaskID}"></td>-->
+<!--            <td th:text="*{task.title}"></td>-->
+<!--            <td th:text="*{task.description}"></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+<!--<div th:if="${tasks == null || tasks.empty}">-->
+<!--    <p>No subtasks</p>-->
+<!--</div>-->
+</div>
+</div>
+
 </body>
 </html>

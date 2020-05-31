@@ -43,17 +43,33 @@ public class TaskServiceImpl implements TaskService {
         return taskDTOS;
     }
 
+    @Override
+    public List<SubTask> getSubTasks(){
+        List<SubTask> subTasks = new ArrayList<>();
+        for (SubTask subTask : subTaskRepository.findAll()){
+            SubTaskDTO subTaskDTO = new SubTaskDTO();
+            subTaskDTO.setTitle(subTask.getTitle());
+            subTaskDTO.setDescription(subTask.getDescription());
+            subTaskDTO.setId(subTask.getId());
+            subTasks.add(subTask);
+        }
+        return subTasks;
+    }
+
+    @Override
     public List<SubTaskDTO> getSubTasksBySuperTaskID(UUID id){
         List<SubTaskDTO> subTaskDTOS = new ArrayList<>();
         for (SubTask subTask : subTaskRepository.findAll()){
-            System.out.print("there are subtasks in the subtaskrepository");
-            if(subTask.getSuperTaskID() == id) {
-                System.out.print("the subtask's supertaskid matches");
+            if(subTask.getSuperTaskID().toString().equals(id.toString())) {
                 SubTaskDTO subTaskDTO = new SubTaskDTO();
                 subTaskDTO.setId(subTask.getId());
                 subTaskDTO.setTitle(subTask.getTitle());
                 subTaskDTO.setDescription(subTask.getDescription());
                 subTaskDTO.setSuperTaskID(subTask.getSuperTaskID());
+                subTaskDTOS.add(subTaskDTO);
+            }
+            else {
+                System.out.println("no match");
             }
         }
         return subTaskDTOS;
@@ -103,10 +119,20 @@ public class TaskServiceImpl implements TaskService {
             subTaskDTO1.setSuperTaskID(subtask.getSuperTaskID());
             subTaskDTOS.add(subTaskDTO1);
         }
+        subTaskDTO.setSuperTaskID(id);
         subTaskDTOS.add(subTaskDTO);
+        subtask.setSuperTaskID(id);
         taskDTO.setSubTaskDTOList(subTaskDTOS);
 
+        this.taskRepository.saveAndFlush(task);
         this.subTaskRepository.saveAndFlush(subtask);
-        this.taskRepository.save(task);
+    }
+
+    public String subTaskListToString(){
+        String result = "";
+        for (SubTask subTask: subTaskRepository.findAll()){
+            result += "id: " + subTask.getId() + "\n description: " + subTask.getDescription() + "\n supertaskid: " + subTask.getSuperTaskID() + "\n";
+        }
+        return result;
     }
 }
