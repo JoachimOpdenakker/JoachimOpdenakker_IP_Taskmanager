@@ -94,4 +94,12 @@ public class TaskManagerController {
         taskService.addSubTask(taskID, subTaskDTO);
         return "redirect:/tasks/" + id;
     }
+
+    @GetMapping("/tasks/{id}/remove")
+    public String removeTask(@PathVariable("id") String id, Model model){
+        UUID taskID = UUID.fromString(id);
+        Task task = taskService.getTask(taskID);
+        model.addAttribute("task", task) ;
+        return "removeConfirmation";
+    }
 }
