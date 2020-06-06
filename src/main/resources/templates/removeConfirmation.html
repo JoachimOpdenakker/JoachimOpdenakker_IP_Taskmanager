@@ -18,13 +18,11 @@
 <div th:include="navigation.html"></div>
 <div class="container">
 
-    <form action="" method="post">
-
-
+    <h4>Are you sure you want to remove the following task and all its subtasks?</h4>
+    <form th:method="post" th:action="@{'/tasks/'+ ${id}+'/remove'}" th:object="${task}">
+        <input type="hidden" th:field="*{id}">
         <button type="submit" class="btn btn-danger" th:text="#{removetask}"></button>
-        <button class="btn btn-dark" th:text="#{cancelaction}"></button>
-
-
+        <button class="btn btn-dark" th:text="#{cancelation}"></button>
     </form>
 
 </div>

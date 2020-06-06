@@ -28,8 +28,7 @@ public class TaskManagerController {
 
     @GetMapping("/tasks")
     public String getTasks(Model model){
-//        List<SubTask> subTasks = taskService.getSubTasks();
-        System.out.println(this.taskService.subTaskListToString());
+//        System.out.println(this.taskService.subTaskListToString());
         model.addAttribute("tasks", taskService.getTasks());
         model.addAttribute("subtasks", taskService.getSubTasks());
         return "tasks";
@@ -101,5 +100,16 @@ public class TaskManagerController {
         Task task = taskService.getTask(taskID);
         model.addAttribute("task", task) ;
         return "removeConfirmation";
+    }
+
+
+    @PostMapping("/tasks/{id}/remove")
+    public String removeTask(@ModelAttribute("task") Task task, @PathVariable("id") String id, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "redirect:/tasks/" + id;
+        }
+        taskService.removeTaskAndSubtasks(UUID.fromString(id));
+
+        return "redirect:/tasks/";
     }
 }

@@ -38,9 +38,10 @@
         </tr>
     </tbody>
 </table>
-    <a th:href="@{/tasks}" class="btn btn-light" th:text="#{back}"></a>
-    <a th:href="@{/tasks/edit/__${task.getId()}__}" class="btn btn-danger" th:text="#{edit}"></a>
-    <a th:href="@{/tasks/__${task.getId()}__/sub/create}" class="btn btn-success" th:text="#{newsubtaskcreate}"></a>
+    <a th:href="@{/tasks}" class="btn btn-dark" th:text="#{back}"></a>
+    <a th:href="@{/tasks/edit/__${task.getId()}__}" class="btn btn-success" th:text="#{edit}"></a>
+    <a th:href="@{/tasks/__${task.getId()}__/sub/create}" class="btn btn-primary" th:text="#{newsubtaskcreate}"></a>
+    <a th:href="@{/tasks/__${task.getId()}__/remove}" class="btn btn-danger" th:text="#{removetask}"></a>
 
     <h4 th:text="#{subtasks}"></h4>
     <div th:if="${subtasks != null || !subtasks.empty}">

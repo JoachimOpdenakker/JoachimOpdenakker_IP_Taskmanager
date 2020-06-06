@@ -127,4 +127,14 @@ public class TaskServiceImpl implements TaskService {
         }
         return result;
     }
+
+    @Override
+    public void removeTaskAndSubtasks(UUID id){
+        for (SubTask subTask: subTaskRepository.findAll()){
+            if (subTask.getSuperTaskID().equals(id)){
+                subTaskRepository.delete(subTask);
+            }
+        }
+        taskRepository.deleteById(id);
+    }
 }

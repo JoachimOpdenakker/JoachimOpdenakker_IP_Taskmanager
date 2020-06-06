@@ -23,6 +23,8 @@ public interface TaskService {
     List<SubTaskDTO> getSubTasksBySuperTaskID(UUID id);
 
     List<SubTaskDTO> getSubTasks();
+
+    void removeTaskAndSubtasks(UUID id);
 }
 
 
