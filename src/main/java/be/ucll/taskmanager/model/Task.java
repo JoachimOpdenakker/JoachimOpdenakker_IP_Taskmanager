@@ -97,12 +97,4 @@ public class Task {
     public void addSubTask(SubTask subTask){
         subTaskList.add(subTask);
     }
-
-    public List<SubTask> getSubTaskList(){
-        System.out.println("testing if subtask is in list");
-        for (SubTask subTask : subTaskList){
-            System.out.println("title: "+ subTask.getTitle() +" description: "+ subTask.getDescription());
-        }
-        return subTaskList;
-    }
 }

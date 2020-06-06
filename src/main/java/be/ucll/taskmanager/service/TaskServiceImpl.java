@@ -32,7 +32,6 @@ public class TaskServiceImpl implements TaskService {
                 subTaskRepository.save(new SubTask("test", "test", task.getId()));
             }
         }
-
     }
 
     @Override
@@ -109,28 +108,14 @@ public class TaskServiceImpl implements TaskService {
         SubTask subtask = new SubTask();
         subtask.setTitle(subTaskDTO.getTitle());
         subtask.setDescription(subTaskDTO.getDescription());
-
         TaskDTO taskDTO = new TaskDTO();
         Task task = this.taskRepository.findById(subTaskDTOId).get();
         taskDTO.setId(task.getId());
         taskDTO.setTitle(task.getTitle());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setDueDate(task.getDueDate());
-        List<SubTask> subTasks = task.getSubTaskList();
-        List<SubTaskDTO> subTaskDTOS = new ArrayList<>();
-        for (SubTask subTask: subTasks){
-            SubTaskDTO subTaskDTO1 = new SubTaskDTO();
-            subTaskDTO1.setId(subTask.getId());
-            subTaskDTO1.setTitle(subTask.getTitle());
-            subTaskDTO1.setDescription(subTask.getDescription());
-            subTaskDTO1.setSuperTaskID(subtask.getSuperTaskID());
-            subTaskDTOS.add(subTaskDTO1);
-        }
         subTaskDTO.setSuperTaskID(id);
-        subTaskDTOS.add(subTaskDTO);
         subtask.setSuperTaskID(id);
-        taskDTO.setSubTaskDTOList(subTaskDTOS);
-
         this.taskRepository.saveAndFlush(task);
         this.subTaskRepository.saveAndFlush(subtask);
     }
