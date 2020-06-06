@@ -17,7 +17,7 @@
 <body>
 <div th:include="navigation.html"></div>
 <div class="container">
-    <h4>Task</h4>
+    <h4 th:text="#{task}"></h4>
     <table class="table table-striped">
     <tbody>
 <!--        <tr>-->
@@ -42,7 +42,7 @@
     <a th:href="@{/tasks/edit/__${task.getId()}__}" class="btn btn-danger" th:text="#{edit}"></a>
     <a th:href="@{/tasks/__${task.getId()}__/sub/create}" class="btn btn-success" th:text="#{newsubtaskcreate}"></a>
 
-    <h4>SubTasks</h4>
+    <h4 th:text="#{subtasks}"></h4>
     <div th:if="${subtasks != null || !subtasks.empty}">
         <table class="table table-striped">
             <thead class="thead-dark">
