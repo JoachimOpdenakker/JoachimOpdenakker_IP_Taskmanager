@@ -94,7 +94,4 @@ public class Task {
         this.subTaskList = subTaskList;
     }
 
-    public void addSubTask(SubTask subTask){
-        subTaskList.add(subTask);
-    }
 }

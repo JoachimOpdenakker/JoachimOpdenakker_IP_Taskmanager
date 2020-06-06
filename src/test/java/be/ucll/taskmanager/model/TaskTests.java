@@ -31,14 +31,4 @@ public class TaskTests {
         Task task = new Task("title", LocalDateTime.now(), null);
     }
 
-    public void add_subtask_to_task(){
-        List<SubTask> subTasks = new ArrayList<>();
-        Task task = new Task("title", LocalDateTime.now(), "description");
-        SubTask subTask = new SubTask();
-        subTask.setTitle("title");
-        subTask.setDescription("description");
-        task.addSubTask(subTask);
-        subTasks.add(subTask);
-        assertEquals(task.getSubTaskList(), subTasks);
-    }
 }
