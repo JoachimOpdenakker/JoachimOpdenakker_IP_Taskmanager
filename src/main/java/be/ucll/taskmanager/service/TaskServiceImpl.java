@@ -27,6 +27,12 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.save(new Task("Test", LocalDateTime.now(), "this is some test description"));
         taskRepository.save(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
         taskRepository.save(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
+        for (Task task: taskRepository.findAll()){
+            if (task.getTitle().equals("ITS GETTING BORING NOW")){
+                subTaskRepository.save(new SubTask("test", "test", task.getId()));
+            }
+        }
+
     }
 
     @Override
@@ -44,14 +50,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<SubTask> getSubTasks(){
-        List<SubTask> subTasks = new ArrayList<>();
+    public List<SubTaskDTO> getSubTasks(){
+        List<SubTaskDTO> subTasks = new ArrayList<>();
         for (SubTask subTask : subTaskRepository.findAll()){
             SubTaskDTO subTaskDTO = new SubTaskDTO();
             subTaskDTO.setTitle(subTask.getTitle());
             subTaskDTO.setDescription(subTask.getDescription());
             subTaskDTO.setId(subTask.getId());
-            subTasks.add(subTask);
+            subTaskDTO.setSuperTaskID(subTask.getSuperTaskID());
+            subTasks.add(subTaskDTO);
         }
         return subTasks;
     }

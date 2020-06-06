@@ -22,7 +22,7 @@ public interface TaskService {
 
     List<SubTaskDTO> getSubTasksBySuperTaskID(UUID id);
 
-    List<SubTask> getSubTasks();
+    List<SubTaskDTO> getSubTasks();
 }
 
 
