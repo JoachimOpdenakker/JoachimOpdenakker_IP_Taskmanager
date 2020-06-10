@@ -2,6 +2,8 @@ package be.ucll.taskmanager.controller;
 
 import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.dto.TeamDTO;
+import be.ucll.taskmanager.dto.UserDTO;
 import be.ucll.taskmanager.model.SubTask;
 import be.ucll.taskmanager.model.Task;
 import be.ucll.taskmanager.service.TaskService;
@@ -93,5 +95,43 @@ public class TaskManagerController {
         UUID taskID = UUID.fromString(id);
         taskService.addSubTask(taskID, subTaskDTO);
         return "redirect:/tasks/" + id;
+    }
+
+    @GetMapping("/teams")
+    public String getTeams(Model model){
+        model.addAttribute("teams", taskService.getTeams());
+        return "teams";
+    }
+
+    @GetMapping("/teams/new")
+    public String newTeam(Model model){
+        model.addAttribute("teamDTO", new TeamDTO());
+        return "newTeam";
+    }
+
+    @PostMapping("/teams/new")
+    public String newTeam(Model model, @ModelAttribute TeamDTO teamDTO, BindingResult bindingResult){
+        System.out.print("Adding a new team");
+        if(bindingResult.hasErrors()){
+            System.out.print(bindingResult);
+            return "newTeam";
+        }
+        taskService.addTeam(teamDTO);
+        return "redirect:/teams";
+    }
+
+    @GetMapping("/users/new")
+    public String newUser(Model model){
+        model.addAttribute("userDTO", new UserDTO());
+        return "newUser";
+    }
+
+
+
+    public String newUser(Model model, @ModelAttribute UserDTO userDTO, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
+            return "newUser";
+        }
     }
 }

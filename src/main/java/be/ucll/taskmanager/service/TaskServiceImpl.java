@@ -2,14 +2,16 @@ package be.ucll.taskmanager.service;
 
 import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.dto.TeamDTO;
 import be.ucll.taskmanager.model.SubTask;
 import be.ucll.taskmanager.model.Task;
+import be.ucll.taskmanager.model.Team;
 import be.ucll.taskmanager.repository.SubTaskRepository;
 import be.ucll.taskmanager.repository.TaskRepository;
+import be.ucll.taskmanager.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,14 +21,17 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final SubTaskRepository subTaskRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, SubTaskRepository subTaskRepository){
+    public TaskServiceImpl(TaskRepository taskRepository, SubTaskRepository subTaskRepository, TeamRepository teamRepository){
         this.taskRepository = taskRepository;
         this.subTaskRepository = subTaskRepository;
-        taskRepository.save(new Task("Test", LocalDateTime.now(), "this is some test description"));
-        taskRepository.save(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
-        taskRepository.save(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
+        this.teamRepository = teamRepository;
+
+//        taskRepository.save(new Task("Test", LocalDateTime.now(), "this is some test description"));
+//        taskRepository.save(new Task("OEH NOG EEN TEST", LocalDateTime.now(), "this is some test description"));
+//        taskRepository.save(new Task("ITS GETTING BORING NOW", LocalDateTime.now(), "this is some test description"));
     }
 
     @Override
@@ -83,7 +88,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void addTask(TaskDTO taskDTO){
-        Task task = new Task(taskDTO.getTitle(), taskDTO.getDueDate(), taskDTO.getDescription());
+        Task task = new Task(taskDTO.getTitle(), taskDTO.getDueDate(), taskDTO.getDescription(), taskDTO.getTeam());
         taskRepository.save(task);
     }
 
@@ -134,5 +139,24 @@ public class TaskServiceImpl implements TaskService {
             result += "id: " + subTask.getId() + "\n description: " + subTask.getDescription() + "\n supertaskid: " + subTask.getSuperTaskID() + "\n";
         }
         return result;
+    }
+
+    @Override
+    public List<TeamDTO> getTeams(){
+        List<TeamDTO> teamDTOS = new ArrayList<>();
+        for (Team team : teamRepository.findAll()) {
+            TeamDTO teamDTO = new TeamDTO();
+            teamDTO.setId(team.getId());
+            teamDTO.setName(team.getName());
+            teamDTO.setUsers(team.getUsers());
+            teamDTOS.add(teamDTO);
+        }
+        return teamDTOS;
+    }
+
+    @Override
+    public void addTeam(TeamDTO teamDTO){
+        Team team = new Team(teamDTO.getName(), teamDTO.getUsers());
+        teamRepository.save(team);
     }
 }

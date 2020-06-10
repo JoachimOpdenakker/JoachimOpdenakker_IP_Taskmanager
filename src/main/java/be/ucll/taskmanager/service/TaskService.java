@@ -2,6 +2,7 @@ package be.ucll.taskmanager.service;
 
 import be.ucll.taskmanager.dto.SubTaskDTO;
 import be.ucll.taskmanager.dto.TaskDTO;
+import be.ucll.taskmanager.dto.TeamDTO;
 import be.ucll.taskmanager.model.SubTask;
 import be.ucll.taskmanager.model.Task;
 
@@ -11,6 +12,8 @@ import java.util.UUID;
 public interface TaskService {
 
     public List<TaskDTO> getTasks();
+
+    public List<TeamDTO> getTeams();
 
     void addTask(TaskDTO taskDTO);
 
@@ -23,6 +26,8 @@ public interface TaskService {
     List<SubTaskDTO> getSubTasksBySuperTaskID(UUID id);
 
     List<SubTask> getSubTasks();
+
+    void addTeam(TeamDTO teamDTO);
 }
 
 

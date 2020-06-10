@@ -3,10 +3,7 @@ package be.ucll.taskmanager.model;
 import be.ucll.taskmanager.dto.SubTaskDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,17 @@ public class Task {
     private String description;
     private Boolean completed;
 
+    @OneToOne
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     @OneToMany
     private List<SubTask> subTaskList;
 
@@ -34,7 +42,7 @@ public class Task {
         }
     }
 
-    public Task(String title, LocalDateTime dueDate, String description){
+    public Task(String title, LocalDateTime dueDate, String description, Team team){
         setTitle(title);
         this.dueDate = dueDate;
         setDescription(description);
@@ -42,7 +50,9 @@ public class Task {
         this.completed = false;
         if (subTaskList == null){
             this.subTaskList = new ArrayList<>();
-        }    }
+        }
+        this.team = team;
+    }
 
     public UUID getId() {
         return id;

@@ -1,5 +1,6 @@
 package be.ucll.taskmanager.dto;
 
+import be.ucll.taskmanager.model.Team;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class TaskDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dueDate;
     private String description;
+    private Team team;
 
     private List<SubTaskDTO> subTaskDTOList;
 
@@ -26,6 +28,14 @@ public class TaskDTO {
         setTitle(title);
         setDescription(description);
         setDueDate(dueDate);
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public String getTitle(){
